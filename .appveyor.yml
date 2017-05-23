@@ -18,3 +18,7 @@ build_script:
     %QT_MINGW_DIR%\bin\qmake.exe ..\edbee-lib.pro
 
     mingw32-make.exe -j2
+
+    cd edbee-test\release
+
+    edbee-test.exe
