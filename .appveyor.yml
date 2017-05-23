@@ -1,0 +1,20 @@
+version: 1.0.{build}
+environment:
+  matrix:
+  - QT_MINGW_DIR: "C:\\Qt\\5.8\\mingw53_32"
+  - QT_MINGW_DIR: "C:\\Qt\\5.7\\mingw53_32"
+  - QT_MINGW_DIR: "C:\\Qt\\5.6\\mingw49_32"
+  - QT_MINGW_DIR: "C:\\Qt\\5.5\\mingw492_32"
+  - QT_MINGW_DIR: "C:\\Qt\\5.4\\mingw491_32"
+  - QT_MINGW_DIR: "C:\\Qt\\5.3\\mingw482_32"
+build_script:
+- cmd: >-
+    SET PATH=%QT_MINGW_DIR%\bin\;C:\Qt\Tools\mingw530_32\bin;%PATH%
+
+    mkdir build
+
+    cd build
+
+    %QT_MINGW_DIR%\bin\qmake.exe ..\edbee-lib.pro
+
+    mingw32-make.exe -j2
