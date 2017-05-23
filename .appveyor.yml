@@ -2,23 +2,51 @@ version: 1.0.{build}
 environment:
   matrix:
   - QT_MINGW_DIR: "C:\\Qt\\5.8\\mingw53_32"
+    Q_OR_CMAKE: cmake
+  - QT_MINGW_DIR: "C:\\Qt\\5.8\\mingw53_32"
+    Q_OR_CMAKE: qmake
   - QT_MINGW_DIR: "C:\\Qt\\5.7\\mingw53_32"
+    Q_OR_CMAKE: qmake
   - QT_MINGW_DIR: "C:\\Qt\\5.6\\mingw49_32"
+    Q_OR_CMAKE: qmake
   - QT_MINGW_DIR: "C:\\Qt\\5.5\\mingw492_32"
+    Q_OR_CMAKE: qmake
   - QT_MINGW_DIR: "C:\\Qt\\5.4\\mingw491_32"
+    Q_OR_CMAKE: qmake
   - QT_MINGW_DIR: "C:\\Qt\\5.3\\mingw482_32"
+    Q_OR_CMAKE: qmake
+  - QT_MINGW_DIR: "C:\\Qt\\5.7\\mingw53_32"
+    Q_OR_CMAKE: cmake
+  - QT_MINGW_DIR: "C:\\Qt\\5.6\\mingw49_32"
+    Q_OR_CMAKE: cmake
+  - QT_MINGW_DIR: "C:\\Qt\\5.5\\mingw492_32"
+    Q_OR_CMAKE: cmake
+  - QT_MINGW_DIR: "C:\\Qt\\5.4\\mingw491_32"
+    Q_OR_CMAKE: cmake
+  - QT_MINGW_DIR: "C:\\Qt\\5.3\\mingw482_32"
+    Q_OR_CMAKE: cmake
 build_script:
 - cmd: >-
-    SET PATH=%QT_MINGW_DIR%\bin\;C:\Qt\Tools\mingw530_32\bin;%PATH%
+    SET PATH=%QT_MINGW_DIR%\bin\;C:\Qt\Tools\mingw530_32\bin;C:\Program Files (x86)\cmake\bin
+
+    SET CC=C:\Qt\Tools\mingw530_32\bin\gcc.exe
+
+    SET CXX=C:\Qt\Tools\mingw530_32\bin\g++.exe
 
     mkdir build
 
     cd build
 
-    %QT_MINGW_DIR%\bin\qmake.exe ..\edbee-lib.pro
+    echo %Q_OR_CMAKE%
+
+    IF "%Q_OR_CMAKE%"=="cmake" cmake -G "MinGW Makefiles" .. 
+
+    IF "%Q_OR_CMAKE%"=="qmake" qmake ..\edbee-lib.pro
 
     mingw32-make.exe -j2
 
-    cd edbee-test\release
+    cd edbee-test
+
+    IF "%Q_OR_CMAKE%"=="qmake" cd release
 
     edbee-test.exe
