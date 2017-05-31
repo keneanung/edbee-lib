@@ -6,6 +6,8 @@ QT  += widgets
 TARGET = edbee-test
 TEMPLATE = app
 
+CONFIG += console 
+
 #QMAKE_CXXFLAGS+=-fsanitize=address -fsanitize=bounds
 #QMAKE_LFLAGS+=-fsanitize=address -fsanitize=bounds
 
