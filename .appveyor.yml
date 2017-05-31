@@ -2,25 +2,65 @@ version: 1.0.{build}
 environment:
   matrix:
   - QT_MINGW_DIR: "C:\\Qt\\5.8\\mingw53_32"
-    Q_OR_CMAKE: cmake
+    Q_OR_CMAKE: qmake
+    MINGW_OR_MSVC: mingw
+  - QT_MINGW_DIR: "C:\\Qt\\5.7\\mingw53_32"
+    Q_OR_CMAKE: qmake
+    MINGW_OR_MSVC: mingw
+  - QT_MINGW_DIR: "C:\\Qt\\5.6\\mingw49_32"
+    Q_OR_CMAKE: qmake
+    MINGW_OR_MSVC: mingw
+  - QT_MINGW_DIR: "C:\\Qt\\5.5\\mingw492_32"
+    Q_OR_CMAKE: qmake
+    MINGW_OR_MSVC: mingw
+  - QT_MINGW_DIR: "C:\\Qt\\5.4\\mingw491_32"
+    Q_OR_CMAKE: qmake
+    MINGW_OR_MSVC: mingw
   - QT_MINGW_DIR: "C:\\Qt\\5.8\\mingw53_32"
-    Q_OR_CMAKE: qmake
-  - QT_MINGW_DIR: "C:\\Qt\\5.7\\mingw53_32"
-    Q_OR_CMAKE: qmake
-  - QT_MINGW_DIR: "C:\\Qt\\5.6\\mingw49_32"
-    Q_OR_CMAKE: qmake
-  - QT_MINGW_DIR: "C:\\Qt\\5.5\\mingw492_32"
-    Q_OR_CMAKE: qmake
-  - QT_MINGW_DIR: "C:\\Qt\\5.4\\mingw491_32"
-    Q_OR_CMAKE: qmake
+    Q_OR_CMAKE: cmake
+    MINGW_OR_MSVC: mingw
   - QT_MINGW_DIR: "C:\\Qt\\5.7\\mingw53_32"
     Q_OR_CMAKE: cmake
+    MINGW_OR_MSVC: mingw
   - QT_MINGW_DIR: "C:\\Qt\\5.6\\mingw49_32"
     Q_OR_CMAKE: cmake
+    MINGW_OR_MSVC: mingw
   - QT_MINGW_DIR: "C:\\Qt\\5.5\\mingw492_32"
     Q_OR_CMAKE: cmake
+    MINGW_OR_MSVC: mingw
   - QT_MINGW_DIR: "C:\\Qt\\5.4\\mingw491_32"
     Q_OR_CMAKE: cmake
+    MINGW_OR_MSVC: mingw
+  - QT_MINGW_DIR: "C:\\Qt\\5.8\\msvc2015"
+    Q_OR_CMAKE: qmake
+    MINGW_OR_MSVC: msvc
+  - QT_MINGW_DIR: "C:\\Qt\\5.7\\msvc2015"
+    Q_OR_CMAKE: qmake
+    MINGW_OR_MSVC: msvc
+  - QT_MINGW_DIR: "C:\\Qt\\5.6\\msvc2015"
+    Q_OR_CMAKE: qmake
+    MINGW_OR_MSVC: msvc
+  - QT_MINGW_DIR: "C:\\Qt\\5.5\\msvc2013"
+    Q_OR_CMAKE: qmake
+    MINGW_OR_MSVC: msvc
+  - QT_MINGW_DIR: "C:\\Qt\\5.4\\msvc2013_opengl"
+    Q_OR_CMAKE: qmake
+    MINGW_OR_MSVC: msvc
+  - QT_MINGW_DIR: "C:\\Qt\\5.8\\msvc2015"
+    Q_OR_CMAKE: cmake
+    MINGW_OR_MSVC: msvc
+  - QT_MINGW_DIR: "C:\\Qt\\5.7\\msvc2015"
+    Q_OR_CMAKE: cmake
+    MINGW_OR_MSVC: msvc
+  - QT_MINGW_DIR: "C:\\Qt\\5.6\\msvc2015"
+    Q_OR_CMAKE: cmake
+    MINGW_OR_MSVC: msvc
+  - QT_MINGW_DIR: "C:\\Qt\\5.5\\msvc2013"
+    Q_OR_CMAKE: cmake
+    MINGW_OR_MSVC: msvc
+  - QT_MINGW_DIR: "C:\\Qt\\5.4\\msvc2013_opengl"
+    Q_OR_CMAKE: cmake
+    MINGW_OR_MSVC: msvc
 build_script:
 - cmd: >-
     SET PATH=%QT_MINGW_DIR%\bin\;C:\Qt\Tools\mingw530_32\bin;C:\Program Files (x86)\cmake\bin
@@ -35,11 +75,11 @@ build_script:
 
     echo %Q_OR_CMAKE%
 
-    IF "%Q_OR_CMAKE%"=="cmake" cmake -G "MinGW Makefiles" .. 
+    IF "%Q_OR_CMAKE%"=="cmake" IF "%MINGW_OR_MSVC%"=="mingw" cmake -G "MinGW Makefiles" .. ELSE cmake ..
 
     IF "%Q_OR_CMAKE%"=="qmake" qmake ..\edbee-lib.pro
 
-    mingw32-make.exe -j2
+    IF "%MINGW_OR_MSVC%"=="mingw" mingw32-make.exe -j2
 
     cd edbee-test
 
