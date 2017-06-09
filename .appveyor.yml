@@ -81,6 +81,8 @@ build_script:
 
     IF "%MINGW_OR_MSVC%"=="mingw" mingw32-make.exe -j2
 
+    IF "%MINGW_OR_MSVC%"=="msvc" nmake.exe /S /NOLOGO
+
     cd edbee-test
 
     IF "%Q_OR_CMAKE%"=="qmake" cd release
