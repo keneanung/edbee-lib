@@ -34,36 +34,48 @@ environment:
   - QT_MINGW_DIR: "C:\\Qt\\5.8\\msvc2015"
     Q_OR_CMAKE: qmake
     MINGW_OR_MSVC: msvc
+    VCVARSALL_PATH: "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\vcvarsall.bat"
   - QT_MINGW_DIR: "C:\\Qt\\5.7\\msvc2015"
     Q_OR_CMAKE: qmake
     MINGW_OR_MSVC: msvc
+    VCVARSALL_PATH: "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\vcvarsall.bat"
   - QT_MINGW_DIR: "C:\\Qt\\5.6\\msvc2015"
     Q_OR_CMAKE: qmake
     MINGW_OR_MSVC: msvc
+    VCVARSALL_PATH: "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\vcvarsall.bat"
   - QT_MINGW_DIR: "C:\\Qt\\5.5\\msvc2013"
     Q_OR_CMAKE: qmake
     MINGW_OR_MSVC: msvc
+    VCVARSALL_PATH: "C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\VC\\vcvarsall.bat"
   - QT_MINGW_DIR: "C:\\Qt\\5.4\\msvc2013_opengl"
     Q_OR_CMAKE: qmake
     MINGW_OR_MSVC: msvc
+    VCVARSALL_PATH: "C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\VC\\vcvarsall.bat"
   - QT_MINGW_DIR: "C:\\Qt\\5.8\\msvc2015"
     Q_OR_CMAKE: cmake
     MINGW_OR_MSVC: msvc
+    VCVARSALL_PATH: "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\vcvarsall.bat"
   - QT_MINGW_DIR: "C:\\Qt\\5.7\\msvc2015"
     Q_OR_CMAKE: cmake
     MINGW_OR_MSVC: msvc
+    VCVARSALL_PATH: "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\vcvarsall.bat"
   - QT_MINGW_DIR: "C:\\Qt\\5.6\\msvc2015"
     Q_OR_CMAKE: cmake
     MINGW_OR_MSVC: msvc
+    VCVARSALL_PATH: "C:\\Program Files (x86)\\Microsoft Visual Studio 14.0\\VC\\vcvarsall.bat"
   - QT_MINGW_DIR: "C:\\Qt\\5.5\\msvc2013"
     Q_OR_CMAKE: cmake
     MINGW_OR_MSVC: msvc
+    VCVARSALL_PATH: "C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\VC\\vcvarsall.bat"
   - QT_MINGW_DIR: "C:\\Qt\\5.4\\msvc2013_opengl"
     Q_OR_CMAKE: cmake
     MINGW_OR_MSVC: msvc
+    VCVARSALL_PATH: "C:\\Program Files (x86)\\Microsoft Visual Studio 12.0\\VC\\vcvarsall.bat"
 build_script:
 - cmd: >-
     SET PATH=%QT_MINGW_DIR%\bin\;C:\Qt\Tools\mingw530_32\bin;C:\Program Files (x86)\cmake\bin
+
+    IF "%MINGW_OR_MSVC%"=="msvc" call "%VCVARSALL_PATH%"
 
     SET CC=C:\Qt\Tools\mingw530_32\bin\gcc.exe
 
